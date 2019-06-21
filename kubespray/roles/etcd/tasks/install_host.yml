@@ -1,0 +1,25 @@
+---
+- name: install | Copy etcd and etcdctl binary from download dir
+  synchronize:
+    src: "{{ local_release_dir }}/etcd-{{ etcd_version }}-linux-amd64/{{ item }}"
+    dest: "{{ bin_dir }}/{{ item }}"
+    compress: no
+    perms: yes
+    owner: no
+    group: no
+  changed_when: false
+  delegate_to: "{{ inventory_hostname }}"
+  with_items:
+    - "etcd"
+    - "etcdctl"
+  when: etcd_cluster_setup
+
+- name: install | Set etcd and etcdctl binary permissions
+  file:
+    path: "{{ bin_dir }}/{{ item }}"
+    mode: "0755"
+    state: file
+  with_items:
+    - "etcd"
+    - "etcdctl"
+  when: etcd_cluster_setup

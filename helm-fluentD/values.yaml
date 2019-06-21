@@ -1,0 +1,12 @@
+version: latest
+namespace: kube-system
+image: singhravindra/fluentd-es
+
+configMap:
+  name: fluentd-es-config-v0.1.6
+  data:
+    elasticUrl: 33498fcbb98a4e5e9bd1ad52f26dcfe3.us-central1.gcp.cloud.es.io
+    elasticPort: 9243
+    elasticUser: elastic
+    elasticPass: PIhWVFv0T8j31VoqHWk1UXEt
+    scheme: https

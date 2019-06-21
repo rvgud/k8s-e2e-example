@@ -1,0 +1,9 @@
+- hosts: all
+  gather_facts: yes
+  tasks:
+    - debug: var=ansible_all_ipv4_addresses
+    - set_fact:
+        man_ip: "{{ item }}"
+      with_items: ansible_all_ipv4_addresses
+
+    - debug: var=man_ip

@@ -1,0 +1,20 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: prometheus
+spec:
+  hosts:
+  - "*"
+  gateways:
+  - http-gateway
+  http:
+  - match:
+    - uri:
+        prefix: /prometheus/
+    rewrite:
+      uri: "/"
+    route:
+    - destination:
+        port:
+          number: 9090
+        host: prometheus-k8s.monitoring.svc.cluster.local
