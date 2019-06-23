@@ -31,7 +31,7 @@
 ## Install helm client and tiller server
 
     1. Run below shell script to install helm client:-
-       ./helm/install.sh
+       sudo ./helm/install.sh
     2. Create service account tiller:-
        kubectl apply -f ./helm/serviceAccount.yaml
     3. Create tiller:-
@@ -47,7 +47,7 @@
 ## Install Istio:1.0.5 using helm
     
     1. Install Istio:-
-    helm install ./helm-istio/ --name istio -f ./helm-istio/values.yaml
+    helm install ./helm-istio/ --name istio --namespace istio-system -f ./helm-istio/values.yaml
 
 ## Install monitoring tools :- Prometheus , Grafana , Alertmanger using prometheus-operator
 
