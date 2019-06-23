@@ -540,7 +540,7 @@ tracing:
       #     - tracing.local
 
 kiali:
-  enabled: true
+  enabled: false
   replicaCount: 1
   hub: docker.io/kiali
   tag: v0.10

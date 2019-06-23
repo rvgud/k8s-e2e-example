@@ -1,0 +1,39 @@
+---
+- name: Install Jenkins-Server
+  hosts:
+    - Jenkins-Server
+  gather_facts: true
+  become: yes
+  become_method: sudo
+  tags: [jenkins]
+
+  tasks:
+    - name: Update the software package repository
+      apt:
+        name: "*"
+        update_cache: yes
+    - name: Install dependencies
+      package:
+        name: "{{ item }}"
+        state: present
+      with_items:
+        - openjdk-8-jdk
+    - name: ensure the jenkins apt repository key is installed
+      apt_key: url=https://pkg.jenkins.io/debian-stable/jenkins.io.key state=present
+      become: yes
+
+    - name: ensure the repository is configured
+      apt_repository: repo='deb https://pkg.jenkins.io/debian-stable binary/' state=present
+      become: yes
+
+    - name: ensure jenkins is installed
+      apt: name=jenkins update_cache=yes
+      become: yes
+
+    - name: ensure jenkins is running
+      service: name=jenkins state=started
+
+    - name: Get Admin Password
+      become: yes
+      become_method: sudo
+      command: cat /var/lib/jenkins/secrets/initialAdminPassword

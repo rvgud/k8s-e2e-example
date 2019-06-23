@@ -1,7 +1,16 @@
 # k8s-e2e-example
 
 
-Assuption:- To install kubernetes on GCP instances and deploy service on top it there should be ingress and egress firewalls allowed for required ports.
+## Assuption:- 
+    
+    1. To install kubernetes & Jenkins on GCP instances and deploy service on top it there should be ingress and egress firewalls allowed for required ports.
+
+    2. A running elastic search cluster and kibana server.
+
+## Install Jenkins on GCP instances using Ansible
+    
+    1. ansible-playbook -i jenkins/hosts.ini jenkins/playbook.yml
+
 ## Install Kubernetes on GCP instances using kubespray
     1. cd kubespray
 
@@ -22,37 +31,43 @@ Assuption:- To install kubernetes on GCP instances and deploy service on top it 
 ## Install helm client and tiller server
 
     1. Run below shell script to install helm client:-
-       /helm/install.sh
+       ./helm/install.sh
     2. Create service account tiller:-
-       kubectl create -f /helm/serviceAccount.yaml
+       kubectl apply -f ./helm/serviceAccount.yaml
     3. Create tiller:-
        helm init --service-account=tiller
 
 ## Install FluentD using helm
 
-    1. Specify hostname,port,username & password of elastic search cluster in /helm/fluentd/values.yaml
+    1. Specify hostname,port,username & password of elastic search cluster in ./helm/fluentd/values.yaml
     
     2. Install fluentd:-
-    helm install /helm-fluentd/ --name fluentd -f /helm-fluentd/values.yaml
+    helm install ./helm-fluentD/ --name fluentd -f ./helm-fluentD/values.yaml
+
+## Install Istio:1.0.5 using helm
+    
+    1. Install Istio:-
+    helm install ./helm-istio/ --name istio -f ./helm-istio/values.yaml
 
 ## Install monitoring tools :- Prometheus , Grafana , Alertmanger using prometheus-operator
 
     1.Create Namespace
-        kubectl create -f /monitoring/namespace/
+        kubectl create -f ./monitoring/namespace/
 
     2.Create crd's
-        kubectl create -f /monitoring/crds/
+        kubectl create -f ./monitoring/crds/
 
     3.Install Components
-        kubectl create -f /monitoring/
+        kubectl create -f ./monitoring/
 
 ## Install GuestBook application with canary version
 
     1. Deploy Artifects:-
-       kubectl create -f /guestbook/all-in-one/guestbook-all-in-one.yaml
+       kubectl create namespace development
+       kubectl create -f ./guestbook/all-in-one/guestbook-all-in-one.yaml -n development
 
     2. Deploy Istio virtualservice and destinationrule:-
-       kubectl create -f /guestbook/istio/
+       kubectl create -f ./guestbook/istio/
        
     3. Deploy Canary Artifects:-
-       kubectl create -f /guestbook/canary/
+       kubectl create -f ./guestbook/canary/ -n development
