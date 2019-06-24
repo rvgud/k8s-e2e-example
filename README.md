@@ -28,6 +28,10 @@
 
     To run kubectl command on the host machine you will need the kube context on system. Copy the config file at /root/.kube/.
 
+## Create CLuster role binding for service account kubernetes-dashboard
+ 
+    1. kubectl apply -f ./k8s-dashboard/
+
 ## Install helm client and tiller server
 
     1. Run below shell script to install helm client:-
