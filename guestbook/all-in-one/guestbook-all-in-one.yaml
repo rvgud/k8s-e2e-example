@@ -121,7 +121,6 @@ spec:
     matchLabels:
       app: guestbook
       tier: frontend
-      version: v1
   replicas: 3
   template:
     metadata:
