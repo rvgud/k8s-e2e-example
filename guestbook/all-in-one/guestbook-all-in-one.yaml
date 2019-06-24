@@ -121,12 +121,14 @@ spec:
     matchLabels:
       app: guestbook
       tier: frontend
+      version: v1
   replicas: 3
   template:
     metadata:
       labels:
         app: guestbook
         tier: frontend
+        version: v1
     spec:
       containers:
       - name: php-redis
