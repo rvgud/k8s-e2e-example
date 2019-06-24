@@ -11,7 +11,7 @@
     
     1. ansible-playbook -i jenkins/hosts.ini jenkins/playbook.yml
 
-## Install Kubernetes on GCP instances using kubespray
+## Install Kubernetes v1.11.3 on GCP instances using kubespray
     1. cd kubespray
 
     2. # Install dependencies from ``requirements.txt`
@@ -52,6 +52,11 @@
     
     1. Install Istio:-
     helm install ./helm-istio/ --name istio --namespace istio-system -f ./helm-istio/values.yaml
+
+## Create ingress gateway
+
+    1. kubectl apply -f ./istio-component/http-gateway.yaml
+
 
 ## Install monitoring tools :- Prometheus , Grafana , Alertmanger using prometheus-operator
 
